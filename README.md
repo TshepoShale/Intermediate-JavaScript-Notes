@@ -1,7 +1,9 @@
 # Intermediate-JavaScript-Notes
 /These will be my notes covered for intermediate JavaScript. 
 # Table of Contents: 
-
+* Same Origin Policy
+* window.onscroll Event
+* Resizing windows and scrolling
 
 
 
