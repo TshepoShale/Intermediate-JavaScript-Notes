@@ -1,4 +1,5 @@
 # Intermediate-JavaScript-Notes
+# Week 1: 
 /These will be my notes covered for intermediate JavaScript. 
 # Table of Contents: 
 * Same Origin Policy
@@ -6,7 +7,7 @@
 * Resizing windows and scrolling
 
 
-
+# Day 1:
 # The “Same Origin” policy states that:
 
 If we have a reference to another window, e.g. a popup created by window.open or a window inside <iframe>, and that window comes from the same origin, then we have full access to that window. Otherwise, if it comes from another origin, then we can’t access the content of that window: variables, document, anything. The only exception is location: we can change it (thus redirecting the user). But we cannot read the location (so we can’t see where the user is now, no information leak).
