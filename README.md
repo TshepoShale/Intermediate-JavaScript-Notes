@@ -111,7 +111,7 @@ The postMessage interface allows windows to talk to each other no matter which o
 So, it’s a way around the “Same Origin” policy. It allows a window from john-smith.com to talk to gmail.comand exchange information, but only if they both agree and call corresponding JavaScript functions. That makes it safe for users. 
 The interface has two parts.
 
-postMessage
+postMessage:
 The window that wants to send a message calls postMessage method of the receiving window. In other words, if we want to send the message to win, we should call win.postMessage(data, targetOrigin).
 targetOrigin
 Specifies the origin for the target window, so that only a window from the given origin will get the message.
@@ -120,18 +120,18 @@ The targetOrigin is a safety measure. Remember, if the target window comes from 
 
 Specifying targetOrigin ensures that the window only receives the data if it’s still at the right site. Important when the data is sensitive.
 
-onmessage
+onmessage:
 To receive a message, the target window should have a handler on the message event. It triggers when postMessage is called (and targetOrigin check is successful).
 
 The event object has special properties:
 
-data
+data:
 The data from postMessage.
 
-origin
+origin:
 The origin of the sender, for instance http://javascript.info.
 
-source
+source:
 The reference to the sender window. We can immediately source.postMessage(...) back if we want.
 
 To assign that handler, we should use addEventListener, a short syntax window.onmessage does not work.
