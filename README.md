@@ -166,7 +166,126 @@ That’s all. Now they can interact without limitations. Again, that’s only po
 
 So, in summary, if two or more windows share the same second-level domain level, we can tell the browser that they come from the same origin. 
 
+# Wrong document in pitfall (i-frame): 
 
+When an iframe comes from the same origin, and we may access its document, there’s a pitfall. It’s not related to cross-domain things, but important to know.
+
+Upon its creation, an iframe immediately has a document. But that document is different from the one that loads into it!
+
+So if we do something with the document immediately, that will probably be lost.
+We shouldn’t work with the document of a not-yet-loaded iframe, because that’s the wrong document. If we set any event handlers on it, they will be ignored.
+
+How to detect the moment when the document is there?
+
+The right document is definitely at the place when iframe.onload triggers. But it only triggers when the whole iframe with all resources is loaded.
+
+# Collection: window.frames: 
+
+An alternative way to get a window object for <iframe>– is to get it from the named collectionwindow.frames:
+
+By number: window.frames[0] – the window object for the first frame in the document.
+By name: window.frames.iframeName – the window object for the frame withname="iframeName".
+An iframe may have other iframes inside. The corresponding window objects form a hierarchy.
+
+Navigation links are:
+
+window.frames – the collection of “children” windows (for nested frames).
+window.parent – the reference to the “parent” (outer) window.
+window.top – the reference to the topmost parent window.
+
+# "Sandbox" iframe attribute: 
+
+Allows the prevention of certain actions from happening, due to untrusted code. 
+It “sandboxes” the iframe by treating it as coming from another origin and/or applying other limitations.
+
+There’s a “default set” of restrictions applied for <iframe sandbox src="...">. But it can be relaxed if we provide a space-separated list of restrictions that should not be applied as a value of the attribute, like this: <iframe sandbox="allow-forms allow-popups">.
+
+In other words, an empty "sandbox" attribute puts the strictest limitations possible, but we can put a space-delimited list of those that we want to lift.
+
+Here’s a list of limitations:
+
+allow-same-origin:
+By default "sandbox" forces the “different origin” policy for the iframe. In other words, it makes the browser to treat the iframe as coming from another origin, even if its src points to the same site. With all implied restrictions for scripts. This option removes that feature.
+
+allow-top-navigation:
+Allows the iframe to change parent.location.
+
+allow-forms:
+Allows to submit forms from iframe.
+
+allow-scripts:
+Allows to run scripts from the iframe.
+
+allow-popups:
+Allows to window.open popups from the iframe.
+
+# Day 3: 
+
+# Click-Jacking: 
+
+The “clickjacking” attack allows an evil page to click on a “victim site” on behalf of the visitor.
+Clickjacking is for clicks, not for keyboard.
+Intersection Observer is looking into solving the click-jacking problem. It can also track interactions off-screen you do not have to always be online, or on the page, to track changes.  Also create a "delay" declaration to check how long it can be visible to you. 
+
+
+# Weak, old-school defences: 
+
+The oldest defense is a bit of JavaScript which forbids opening the page in a frame (so-called “framebusting”).
+
+window.onbeforeunload
+If a visitor initiated navigation away from the page or tries to close the window, the beforeunload handler asks for additional confirmation.
+
+If we cancel the event, the browser may ask the visitor if they are sure.
+
+You can try it by running this code and then reloading the page:
+
+window.onbeforeunload = function() {
+  return false;
+};
+For historical reasons, returning a non-empty string also counts as canceling the event. Some time ago browsers used to show it as a message, but as the modern specification says, they shouldn’t.
+
+Here’s an example:
+
+window.onbeforeunload = function() {
+  return "There are unsaved changes. Leave now?";
+};
+The behavior was changed, because some webmasters abused this event handler by showing misleading and annoying messages. So right now old browsers still may show it as a message, but aside of that – there’s no way to customize the message shown to the user.
+When the iframe tries to change top.location, the visitor gets a message asking them whether they want to leave.
+In most cases the visitor would answer negatively because they don’t know about the iframe – all they can see is the top page, there’s no reason to leave. So top.location won’t change!
+Sandbox attribute:
+One of the things restricted by the sandbox attribute is navigation. A sandboxed iframe may not change top.location.
+So we can add the iframe with sandbox="allow-scripts allow-forms". That would relax the restrictions, permitting scripts and forms. But we omit allow-top-navigation so that changing top.location is forbidden.
+Here’s the code:
+<iframe sandbox="allow-scripts allow-forms" src="facebook.html"></iframe>
+There are other ways to work around that simple protection too.
+
+
+# X-Frame options: 
+
+The server-side header X-Frame-Options can permit or forbid displaying the page inside a frame.
+It must be sent exactly as HTTP-header: the browser will ignore it if found in HTML <meta> tag. So, <meta http-equiv="X-Frame-Options"...> won’t do anything.
+
+It must be sent exactly as HTTP-header: the browser will ignore it if found in HTML <meta> tag. So, <meta http-equiv="X-Frame-Options"...> won’t do anything.
+
+The header may have 3 values:
+
+DENY:
+Never ever show the page inside a frame.
+
+SAMEORIGIN:
+Allow inside a frame if the parent document comes from the same origin.
+
+ALLOW-FROM domain:
+Allow inside a frame if the parent document is from the given domain.
+
+For instance, Twitter uses X-Frame-Options: SAMEORIGIN.
+
+Here’s the result:
+<iframe src="https://twitter.com"></iframe>
+Depending on your browser, the iframe above is either empty or alerting you that the browser won’t permit that page to be navigating in this way.
+Showing with disabled functionality
+The X-Frame-Options header has a side-effect. Other sites won’t be able to show our page in a frame, even if they have good reasons to do so.
+So there are other solutions… For instance, we can “cover” the page with a <div> with styles height: 100%; width: 100%;, so that it will intercept all clicks. That <div> is to be removed if window == top or if we figure out that we don’t need the protection.
 
 
 
