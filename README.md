@@ -67,6 +67,47 @@ JavaScript has no way to minify or maximize a window. These OS-level functions a
 
 Move/resize methods do not work for maximized/minimized windows.
 
+# Closing Pop-ups: 
+To close a window: win.close().
+To check if a window is closed: win.closed.
+Technically, the close() method is available for any window, but window.close() is ignored by most browsers if window is not created with window.open(). So it’ll only work on a popup.
+The closed property is true if the window is closed. That’s useful to check if the popup (or the main window) is still open or not. A user can close it anytime, and our code should take that possibility into account.
+This code loads and then closes the window:
+
+let newWindow = open('/', 'example', 'width=300,height=300');
+newWindow.onload = function() {
+  newWindow.close();
+  alert(newWindow.closed); // true
+};
+
+# Accessing windows from popups: 
+
+A popup may access the “opener” window as well using window.opener reference. It is null for all windows except popups.
+
+# Accessing popups from Windows: 
+
+Cross window communication helps when communicating with different browser tabs, and sharing of information. 
+The open call returns a reference to the new window. It can be used to manipulate it’s properties, change location and even more.
+
+# Window.open method: 
+
+The syntax to open a popup is: window.open(url, name, params). 
+
+
+# Popup and Window methods: 
+
+A popup is a separate window with its own independent JavaScript environment. So opening a popup with a third-party non-trusted site is safe.
+It’s very easy to open a popup.
+A popup can navigate (change URL) and send messages to the opener window.
+ setTimeout function to open a new browser window or tab with the URL 'http://google.com' after a delay of 3000 milliseconds, which is equivalent to 3 seconds.
+
+ # Day 2: 
+
+ 
+
+
+
+
 
 
 
