@@ -80,21 +80,21 @@ newWindow.onload = function() {
   alert(newWindow.closed); // true
 };
 
-# Accessing windows from popups: 
+## Accessing windows from popups: 
 
 A popup may access the “opener” window as well using window.opener reference. It is null for all windows except popups.
 
-# Accessing popups from Windows: 
+## Accessing popups from Windows: 
 
 Cross window communication helps when communicating with different browser tabs, and sharing of information. 
 The open call returns a reference to the new window. It can be used to manipulate it’s properties, change location and even more.
 
-# Window.open method: 
+## Window.open method: 
 
 The syntax to open a popup is: window.open(url, name, params). 
 
 
-# Popup and Window methods: 
+## Popup and Window methods: 
 
 A popup is a separate window with its own independent JavaScript environment. So opening a popup with a third-party non-trusted site is safe.
 It’s very easy to open a popup.
@@ -103,7 +103,7 @@ A popup can navigate (change URL) and send messages to the opener window.
 
  # Day 2: 
 
-# Cross-Window Communication: 
+## Cross-Window Communication: 
 
 Cross-Window Messaging: 
 The postMessage interface allows windows to talk to each other no matter which origin they are from.
@@ -136,7 +136,7 @@ The reference to the sender window. We can immediately source.postMessage(...) b
 
 To assign that handler, we should use addEventListener, a short syntax window.onmessage does not work.
 
-# i-frame:
+## i-frame:
 
 An <iframe> tag hosts a separate embedded window, with its own separate document and window objects.
 
@@ -152,7 +152,7 @@ The iframe.onload event (on the <iframe>tag) is essentially the same as iframe.c
 
 …But we can’t access iframe.contentWindow.onload for an iframe from another origin, so using iframe.onload.
 
-# Windows on subdomains: document.domain:
+## Windows on subdomains: document.domain:
 
 By definition, two URLs with different domains have different origins.
 
@@ -166,7 +166,7 @@ That’s all. Now they can interact without limitations. Again, that’s only po
 
 So, in summary, if two or more windows share the same second-level domain level, we can tell the browser that they come from the same origin. 
 
-# Wrong document in pitfall (i-frame): 
+## Wrong document in pitfall (i-frame): 
 
 When an iframe comes from the same origin, and we may access its document, there’s a pitfall. It’s not related to cross-domain things, but important to know.
 
@@ -179,7 +179,7 @@ How to detect the moment when the document is there?
 
 The right document is definitely at the place when iframe.onload triggers. But it only triggers when the whole iframe with all resources is loaded.
 
-# Collection: window.frames: 
+## Collection: window.frames: 
 
 An alternative way to get a window object for <iframe>– is to get it from the named collectionwindow.frames:
 
@@ -193,7 +193,7 @@ window.frames – the collection of “children” windows (for nested frames).
 window.parent – the reference to the “parent” (outer) window.
 window.top – the reference to the topmost parent window.
 
-# "Sandbox" iframe attribute: 
+## "Sandbox" iframe attribute: 
 
 Allows the prevention of certain actions from happening, due to untrusted code. 
 It “sandboxes” the iframe by treating it as coming from another origin and/or applying other limitations.
@@ -221,14 +221,14 @@ Allows to window.open popups from the iframe.
 
 # Day 3: 
 
-# Click-Jacking: 
+## Click-Jacking: 
 
 The “clickjacking” attack allows an evil page to click on a “victim site” on behalf of the visitor.
 Clickjacking is for clicks, not for keyboard.
 Intersection Observer is looking into solving the click-jacking problem. It can also track interactions off-screen you do not have to always be online, or on the page, to track changes.  Also create a "delay" declaration to check how long it can be visible to you. 
 
 
-# Weak, old-school defences: 
+## Weak, old-school defences: 
 
 The oldest defense is a bit of JavaScript which forbids opening the page in a frame (so-called “framebusting”).
 
@@ -260,7 +260,7 @@ Here’s the code:
 There are other ways to work around that simple protection too.
 
 
-# X-Frame options: 
+## X-Frame options: 
 
 The server-side header X-Frame-Options can permit or forbid displaying the page inside a frame.
 It must be sent exactly as HTTP-header: the browser will ignore it if found in HTML <meta> tag. So, <meta http-equiv="X-Frame-Options"...> won’t do anything.
