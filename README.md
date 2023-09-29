@@ -8,12 +8,12 @@
 
 
 # Day 1:
-# The “Same Origin” policy states that:
+## The “Same Origin” policy states that:
 
 If we have a reference to another window, e.g. a popup created by window.open or a window inside <iframe>, and that window comes from the same origin, then we have full access to that window. Otherwise, if it comes from another origin, then we can’t access the content of that window: variables, document, anything. The only exception is location: we can change it (thus redirecting the user). But we cannot read the location (so we can’t see where the user is now, no information leak).
 
 
-# window.onscroll Event: 
+## window.onscroll Event: 
 
 The `window.onscroll` event in JavaScript is an event that gets triggered when a web page is scrolled up or down. Let me explain it to you in simple terms:
 
@@ -37,7 +37,7 @@ In this code, whenever the user scrolls, the message "You're scrolling!" will be
 So, in a nutshell, the `window.onscroll` event helps you create cool and interactive effects on web pages when people scroll up and down.
 
 
-# Resizing windows and Scrolling:
+## Resizing windows and Scrolling:
 
 There are methods to move/resize a window:
 
@@ -67,7 +67,7 @@ JavaScript has no way to minify or maximize a window. These OS-level functions a
 
 Move/resize methods do not work for maximized/minimized windows.
 
-# Closing Pop-ups: 
+## Closing Pop-ups: 
 To close a window: win.close().
 To check if a window is closed: win.closed.
 Technically, the close() method is available for any window, but window.close() is ignored by most browsers if window is not created with window.open(). So it’ll only work on a popup.
