@@ -136,6 +136,39 @@ The reference to the sender window. We can immediately source.postMessage(...) b
 
 To assign that handler, we should use addEventListener, a short syntax window.onmessage does not work.
 
+# i-frame:
+
+An <iframe> tag hosts a separate embedded window, with its own separate document and window objects.
+
+We can access them using properties:
+
+iframe.contentWindow to get the window inside the <iframe>.
+iframe.contentDocument to get the document inside the <iframe>, iframe.contentWindow.document.
+When we access something inside the embedded window, the browser checks if the iframe has the same origin. If that’s not so then the access is denied (writing to location is an exception, it’s still permitted).
+
+iframe.onload vsiframe.contentWindow.onload
+
+The iframe.onload event (on the <iframe>tag) is essentially the same as iframe.contentWindow.onload (on the embedded window object). It triggers when the embedded window fully loads with all resources.
+
+…But we can’t access iframe.contentWindow.onload for an iframe from another origin, so using iframe.onload.
+
+# Windows on subdomains: document.domain:
+
+By definition, two URLs with different domains have different origins.
+
+But if windows share the same second-level domain, for instance, john.site.com, peter.site.com, and site.com (so that their common second-level domain is site.com), we can make the browser ignore that difference, so that they can be treated as coming from the “same origin” for the purposes of cross-window communication.
+
+To make it work, each such window should run the code:
+
+document.domain = 'site.com';
+
+That’s all. Now they can interact without limitations. Again, that’s only possible for pages with the same second-level domain.
+
+So, in summary, if two or more windows share the same second-level domain level, we can tell the browser that they come from the same origin. 
+
+
+
+
 
  
 
