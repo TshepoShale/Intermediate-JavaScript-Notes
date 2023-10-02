@@ -455,6 +455,8 @@ DataView is great when we store mixed-format data in the same buffer. E.g we sto
 
 # Week 2: 
 
+## Day 1:
+
 ## File and FileReader: 
 
 A file object inherits from Blob and is extended with filesystem related capabilities. There are two ways to obtain it. 
@@ -499,6 +501,8 @@ When the reading is finished, we can access the result as:
 
 * reader.result is the result (if successful)
 * reader.error is the error (if failed).
+
+  
 
 
 
