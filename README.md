@@ -591,9 +591,25 @@ To make a POST request, or a request with another method, we need to use fetch o
 URLSearchParams, to submit the data in x-www-form-urlencoded encoding, rarely used.
 NB: Please note, if the body is a string, then Content-Typeis set to text/plain;charset=UTF-8 by default. So we use headers option to send application/jsoninstead, that’s the correct content type for JSON-encoded data.
 
+Response properties:
 
+* response.status – HTTP code of the response,
+* response.ok – true is the status is 200-299.
+* response.headers – Map-like object with HTTP headers.
+* response.formData() – return the response as FormData object (form/multipart encoding,
+* response.headers – Map-like object with HTTP headers.
 
+Methods to get response body:
+* response.json() – parse the response as JSON object,
+* response.text() – return the response as text,
+* response.blob() – return the response as Blob(binary data with type),
+* response.arrayBuffer() – return the response as ArrayBuffer (pure binary data),
 
+Fetch options so far:
+
+* method – HTTP-method,
+* headers – an object with request headers (not any header is allowed),
+* body – string, FormData, BufferSource, Blob or UrlSearchParams object to send.
 
  
 
