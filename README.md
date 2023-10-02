@@ -611,7 +611,52 @@ Fetch options so far:
 * headers – an object with request headers (not any header is allowed),
 * body – string, FormData, BufferSource, Blob or UrlSearchParams object to send.
 
- 
+ Here's an example of an async function named getUsers that takes an array of GitHub logins, fetches the users from GitHub using the Fetch API, and returns an array of GitHub users:
+ async function getUsers(names) {
+  let users = [];
+
+  // Create an array of promises for fetching user data from GitHub API
+  let requests = names.map(name => {
+    return fetch(`https://api.github.com/users/${name}`)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(`Failed to fetch user: ${name}`);
+        }
+      })
+      .then(user => {
+        users.push(user);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  });
+
+  // Wait for all requests to complete
+  await Promise.all(requests);
+
+  return users;
+}
+
+// Example usage of getUsers function
+async function main() {
+  const names = ['user1', 'user2', 'user3']; // GitHub logins
+  try {
+    const githubUsers = await getUsers(names);
+    console.log('GitHub Users:', githubUsers);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+// Call the main function
+main();
+
+
+In this example, the getUsers function takes an array of GitHub logins as input. It uses the map function to create an array of promises, each of which represents a fetch request to the GitHub API for a specific user. The Promise.all function is then used to wait for all fetch requests to complete. The resulting array of GitHub users is returned.
+
+Please note that you should replace 'user1', 'user2', and 'user3' in the names array with the actual GitHub logins you want to fetch. Also, make sure to handle rate limits and errors appropriately in a production environment.
 
 
 
