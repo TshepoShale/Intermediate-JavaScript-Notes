@@ -1,12 +1,6 @@
 # Intermediate-JavaScript-Notes
 # Week 1: 
 /These will be my notes covered for intermediate JavaScript. 
-# Table of Contents: 
-* Same Origin Policy
-* window.onscroll Event
-* Resizing windows and scrolling
-
-
 # Day 1:
 ## The “Same Origin” policy states that:
 
@@ -502,7 +496,100 @@ When the reading is finished, we can access the result as:
 * reader.result is the result (if successful)
 * reader.error is the error (if failed).
 
-  
+NB: FileReader can be used to convert files to another format. 
+
+FileReaderSync is an interface in JavaScript that provides synchronous methods to read the contents of a File or a Blob object. It is a part of the File API, which allows web applications to interact with files on the user's local system.
+
+In JavaScript, file reading operations are typically asynchronous, meaning that the browser initiates the operation and continues executing the remaining code without waiting for the file reading to complete. This is useful for non-blocking operations, ensuring that the web page remains responsive.
+
+However, in some cases, synchronous file reading may be necessary, especially in environments where asynchronous operations are not suitable. For instance, in web workers or other contexts where synchronous I/O operations are allowed, FileReaderSync can be used to read files synchronously.
+
+// Assuming you have a File object named 'file'
+const fileReader = new FileReaderSync();
+const content = fileReader.readAsText(file);
+console.log(content);
+
+In the above code, readAsText is a synchronous method provided by FileReaderSync that reads the contents of the specified file as a text string. The content of the file is stored in the content variable, which can be further processed or displayed as needed.
+
+Please note that synchronous file reading can block the main thread, leading to potential performance issues and unresponsiveness in your web application. It's generally recommended to use asynchronous file reading methods whenever possible to ensure a smooth user experience.
+FileReaderSync is available inside Web Workers
+For Web Workers, there also exists a synchronous variant of FileReader, called FileReaderSync.
+Its reading methods read* do not generate events, but rather return a result, as regular functions do.
+That’s only inside a Web Worker though, because delays in synchronous calls, that are possible while reading from files, in Web Workers are less important. They do not affect the page.
+In many cases though, we don’t have to read the file contents. Just as we did with blobs, we can create a short url with URL.createObjectURL(file) and assign it to <a> or <img>. This way the file can be downloaded or shown up as an image, as a part of canvas etc.
+And if we’re going to send a File over a network, that’s also easy: network API like XMLHttpRequest or fetch natively accepts File objects.
+
+## Fetch: 
+This makes network requests using API, such as fetching resources from a server. 
+There’s an umbrella term “AJAX” (abbreviated Asynchronous Javascript And Xml) for that. We don’t have to use XML though: the term comes from old times, that’s that word is there.
+
+There are multiple ways to send a network request and get information from the server.
+
+The fetch() method is modern and versatile, so we’ll start with it. It evolved for several years and continues to improve, right now the support is pretty solid among browsers.
+
+The basic syntax is:
+
+let promise = fetch(url, [options])
+
+* url – the URL to access.
+* options – optional parameters: method, headers etc.
+The browser starts the request right away and returns a promise.
+Getting a response is usually a two-stage process.
+First, the promise resolves with an object of the built-in Response class as soon as the server responds with headers.
+So we can check HTTP status, to see whether it is successful or not, check headers, but don’t have the body yet.
+The promise rejects if the fetch was unable to make HTTP-request, e.g. network problems, or there’s no such site. HTTP-errors, even such as 404 or 500, are considered a normal flow.
+We can see them in response properties:
+· ok – boolean, true if the HTTP status code is 200-299.
+status – HTTP status code.
+
+Response provides multiple promise-based methods to access the body in various formats:
+
+* response.json() – parse the response as JSON object,
+* response.text() – return the response as text,
+* response.formData() – return the response as FormData object (form/multipart encoding, explained in the next chapter),
+* response.blob() – return the response as Blob(binary data with type),
+* response.arrayBuffer() – return the response as ArrayBuffer (pure binary data),
+additionally, response.body is a ReadableStreamobject, it allows to read the body chunk-by-chunk.
+Important:
+We can choose only one body-parsing method.
+If we got the response with response.text(), then response.json() won’t work, as the body content has already been processed.
+
+## Headers:
+There’s a Map-like headers object in response.headers. We can get individual headers or iterate over them.
+…But there’s a list of forbidden HTTP headers that we can’t set:
+
+· Accept-Charset, Accept-Encoding
+· Access-Control-Request-Headers
+· Access-Control-Request-Method
+· Connection
+· Content-Length
+· Cookie, Cookie2
+· Date
+· DNT
+· Expect
+· Host
+· Keep-Alive
+· Origin
+· Referer
+· TE
+· Trailer
+· Transfer-Encoding
+· Upgrade
+· Via
+· Proxy-*
+· Sec-*
+These headers ensure proper and safe HTTP, so they are controlled exclusively by the browser.
+
+## Post-Requests: 
+To make a POST request, or a request with another method, we need to use fetch options:
+
+* method – HTTP-method, e.g. POST,
+* body – one of:
+* a string (e.g. JSON),
+* FormData object, to submit the data as form/multipart,
+* Blob/BufferSource to send binary data,
+URLSearchParams, to submit the data in x-www-form-urlencoded encoding, rarely used.
+NB: Please note, if the body is a string, then Content-Typeis set to text/plain;charset=UTF-8 by default. So we use headers option to send application/jsoninstead, that’s the correct content type for JSON-encoded data.
 
 
 
