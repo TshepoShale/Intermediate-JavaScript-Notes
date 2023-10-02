@@ -658,11 +658,25 @@ In this example, the getUsers function takes an array of GitHub logins as input.
 
 Please note that you should replace 'user1', 'user2', and 'user3' in the names array with the actual GitHub logins you want to fetch. Also, make sure to handle rate limits and errors appropriately in a production environment.
 
+# Day 2: 
 
+## FormData: 
 
+What is FormData? : Sending HTML forms: with or without files, with additional fields and so on. FormDataobjects can help with that.
+The constructor is:
 
+let formData = new FormData([form]);
 
+If HTML form element is provided, it automatically captures its fields. As you may have already guessed, FormData is an object to store and send form data.
 
+The special thing about FormData is that network methods, such as fetch, can accept a FormDataobject as a body. It’s encoded and sent out with Content-Type: form/multipart. So, from the server point of view, that looks like a usual form submission.
 
-
+## FormData Methods: 
+* formData.append(name, value) – add a form field with the given name and value.
+* formData.append(name, blob, fileName) – add a field as if it were <input type="file">, the third argument fileName sets file name (not form field name), as it it were a name of the file in user’s filesystem.
+* formData.delete(name) – remove the field with the given name.
+* formData.get(name) – get the value of the field with the given name.
+* formData.has(name) – if there exists a field with the given name, returns true, otherwise false.
+  AJAX: Focuses on client server communication.
+  JSON: Focuses on data, and its processing attributes. 
 
