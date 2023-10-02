@@ -453,6 +453,54 @@ DataView is great when we store mixed-format data in the same buffer. E.g we sto
 
                                                                                 --- END OF WEEK 1 ---
 
+# Week 2: 
+
+## File and FileReader: 
+
+A file object inherits from Blob and is extended with filesystem related capabilities. There are two ways to obtain it. 
+First there is a constructor, similar to Blob:
+new File(fileParts, fileName, [options])
+* fileParts - is an array of Blob/BufferSource/String values.
+* fileName - file name string.
+* options - optional object:
+* lastModified - the timestamp (integer date) of last modification.
+Second, more often we get a file from <input type="file"> or drag’n’drop or other browser interfaces. In that case, the file gets this information from OS
+As File inherits from Blob, File objects have the same properties, plus:
+* name – the file name,
+* lastModified – the timestamp of last modification.
+
+## FileReader: 
+
+FileReader is an object with the sole purpose of reading data from Blob (and hence File too) objects. It delivers the data using events as reading from disk may take time.
+The constructor is as follows:
+let reader = new FileReader(); // no arguments
+The main method is as follows:
+
+* readAsArrayBuffer(blob) – read the data in binary format ArrayBuffer; for binary files, to do low-level binary operations. For high-level operations, like slicing, File inherits from Blob, so we can call them directly, without reading.
+* readAsText(blob, [encoding]) – read the data as a text string with the given encoding (utf-8by default).
+* readAsDataURL(blob) – read the binary data and encode it as base64 data url.
+* abort() – cancel the operation.
+* readAsText - for text files, when we’d like to get a string.
+* readAsDataURL - when we’d like to use this data in src for img or another tag. There’s an alternative to reading a file for that, as discussed in chapter Blob: URL.createObjectURL(file).
+
+
+  As the reading proceeds, there are events:
+
+* loadstart – loading started.
+* progress – occurs during reading.
+* load – no errors, reading complete.
+* abort – abort() called.
+* error – error has occurred.
+* loadend – reading finished with either success or failure.
+
+Most common events are load and error. 
+
+When the reading is finished, we can access the result as:
+
+* reader.result is the result (if successful)
+* reader.error is the error (if failed).
+
+
 
 
 
