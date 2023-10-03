@@ -678,5 +678,11 @@ The special thing about FormData is that network methods, such as fetch, can acc
 * formData.get(name) – get the value of the field with the given name.
 * formData.has(name) – if there exists a field with the given name, returns true, otherwise false.
   AJAX: Focuses on client server communication.
-  JSON: Focuses on data, and its processing attributes. 
+  JSON: Focuses on data, and its processing attributes.
+  A form is technically allowed to have many fields with the same name, so multiple calls to append add more same-named fields.
+
+There’s also method set, with the same syntax as append. The difference is that .set removes all fields with the given name, and then appends a new field. So it makes sure there’s only field with such name:
+
+* formData.set(name, value),
+* formData.set(name, blob, fileName).
 
