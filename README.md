@@ -850,3 +850,26 @@ Cache-Control: Used to specify caching directives in the response. For example, 
 5. Pragma: Provides implementation-specific directives that might apply to any recipient along the request/response chain.
 
 6. Access-Control-Allow-Origin: Though this header is part of CORS and is used for handling cross-origin requests, it is considered a simple response header because it doesn't require a preflight request in certain circumstances. When the server specifies a specific origin (rather than "*") in the Access-Control-Allow-Origin header and the request is a simple GET, HEAD, or POST request, this header is considered simple.
+
+Any other response header is forbidden.
+
+Please note: no Content-Length
+
+Please note: there’s no Content-Length header in the list!
+
+This header contains the full response length. So, if we’re downloading something and would like to track the percentage of progress, then additional permission is required to access that header (see below).
+
+NB: To grant JavaScript access to any other response header, the server must list it in the Access-Control-Expose-Headers header.
+
+For example:
+
+200 OK
+Content-Type:text/html; charset=UTF-8
+Content-Length: 12345
+API-Key: 2c9de507f2c54aa1
+Access-Control-Allow-Origin: https://javascript.info
+Access-Control-Expose-Headers: Content-Length,API-Key
+
+With such Access-Control-Expose-Headersheader, the script is allowed to access Content-Length and API-Key headers of the response.
+
+
