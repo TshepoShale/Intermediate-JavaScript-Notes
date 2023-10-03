@@ -686,3 +686,167 @@ There’s also method set, with the same syntax as append. The difference is tha
 * formData.set(name, value),
 * formData.set(name, blob, fileName).
 
+## Sending a Form, with a file: 
+The form is always sent as Content-Type: form/multipart, this encoding allows to send files. So, <input type="file"> fields are sent also, similar to a usual form submission.
+
+## Sending a Form, with Blob data: 
+
+Please note how the image Blob is added:
+
+formData.append("image", imageBlob, "image.png");
+
+That’s same as if there were <input type="file" name="image"> in the form, and the visitor submitted a file named image.png (3rd argument) from their filesystem.
+Summary
+FormData objects are used to capture HTML form and submit it using fetch or another network method.
+
+We can either create new FormData(form) from an HTML form, or create an empty object, and then append fields with methods:
+
+
+* formData.append(name, value)
+* formData.append(name, blob, fileName)
+* formData.set(name, value)
+* formData.set(name, blob, fileName)
+Two peculiarities here:
+
+The set method removes fields with the same name, append doesn’t.
+To send a file, 3-argument syntax is needed, the last argument is a file name, that normally is taken from user filesystem for <input type="file">.
+Other methods are:
+
+* formData.delete(name)
+* formData.get(name)
+* formData.has(name)
+
+## Fetch: Download Progress: 
+To track download progress, we can use response.body property. It’s a “readable stream” – a special object that provides body chunk-by-chunk, as it comes.
+Unlike response.text(), response.json() and other methods, response.body gives full control over the reading process, and we can count how much is consumed at any moment.
+
+
+The result of await reader.read() call is an object with two properties:
+
+* done – true when the reading is complete.
+* value – a typed array of bytes: Uint8Array.
+We wait for more chunks in the loop, until done is true.
+
+To log the progress, we just need for every value add its length to the counter.
+
+## Fetch: Abort: 
+
+Remember, fetch returns a promise. And JavaScript generally has no concept of “aborting” a promise. So how can we cancel a fetch?
+
+There’s a special built-in object for such purposes: AbortController.
+
+Step 1: create a controller:
+let controller = new AbortController();
+
+A controller is an extremely simple object. It has a single method abort(), and a single property signal. When abort() is called, the abortevent triggers on controller.signal:
+let controller = newAbort Controller(); 
+setTimeout(() => controller.abort(), 1000);
+
+try {
+let response = await fetch('/article/fetch-abort/demo/hang',
+{ signal: controller.signal } ); 
+} 
+
+catch(err) 
+{
+  if (err.name == 'AbortError') { //handle abort()
+alert("Aborted!");
+}
+
+else 
+{ throw err; }
+  }
+}
+AbortController is scalable, it allows to cancel multiple fetches at once.
+
+
+# Day 3: 
+
+## Fetch: Cross-Origin requests:
+
+The core concept here is origin – a domain/port/protocol triplet.
+
+Cross-origin requests – those sent to another domain (even a subdomain) or protocol or port – require special headers from the remote side. That policy is called “CORS”: Cross-Origin Resource Sharing.
+This concept protects our websites from evil hackers. 
+### Using Forms: 
+One way to communicate with another server was to submit a <form> there. People submitted it into <iframe>, just to stay on the current page, like this:
+<!-- form target -->
+<iframe name="iframe"></iframe>
+
+<!-- a form could be dynamically generated and submitted by JavaScript --> 
+<form target="iframe" method="POST" action="http://facebook.com/...">
+...
+</form>
+So, it was possible to make a GET/POST request to another site, even without networking methods. But as it’s forbidden to access the content of an <iframe>from another site, it wasn’t possible to read the response.
+
+As we can see, forms allowed to send data anywhere, but not receive the response. To be precise, there were actually tricks for that (required special scripts at both the iframe and the page), but let these dinosaurs rest in peace.
+
+## Simple Requests: 
+NB: Cross-Origin Resource Sharing is a security feature implemented by web browsers to control how web pages in one domain can request and interact with resources hosted on another domain.
+
+When a web page makes a cross-origin HTTP request (a request to a different domain, protocol, or port), the browser includes specific HTTP headers in the request to negotiate permissions with the server.
+There are two types of cross-domain requests:
+
+* Simple requests.
+
+* All the others.
+
+Simple Requests are, well, simpler to make, so let’s start with them.
+
+A simple request is a request that satisfies two conditions:
+
+* Simple method: GET, POST or HEAD
+* Simple headers – the only allowed custom headers are:
+  Accept,
+* Accept-Language,
+* Content-Language,
+* Content-Type with the value application/x-www-form-urlencoded, multipart/form-data or text/plain.
+Any other request is considered “non-simple”. For instance, a request with PUT method or with an API-Key HTTP-header does not fit the limitations.
+The essential difference is that a “simple request” can be made with a <form> or a <script>, without any special methods.
+When we try to make a non-simple request, the browser sends a special “preflight” request that asks the server – does it agree to accept such cross-origin requests, or not?
+And, unless the server explicitly confirms that with headers, a non-simple request is not sent.
+
+### CORS for Simple Requests: 
+
+If a request is cross-origin, the browser always adds Origin header to it.
+
+For instance, if we request https://anywhere.com/request from https://javascript.info/page, the headers will be like:
+
+* GET /request
+* Host: anywhere.com
+* Origin: https://javascript.info
+
+As you can see, Origin contains exactly the origin (domain/protocol/port), without a path.
+
+The server can inspect the Origin and, if it agrees to accept such a request, adds a special header Access-Control-Allow-Origin to the response. That header should contain the allowed origin (in our case https://javascript.info), or a star *. Then the response is successful, otherwise an error.
+
+The browser plays the role of a trusted mediator here:
+1. It ensures that the correct Origin is sent with a cross-domain request.
+2. It checks for correct Access-Control-Allow-Origin in the response, if it is so, then JavaScript access, otherwise forbids with an error.
+
+Here’s an example of a permissive server response:
+
+200 OK
+Content-Type:text/html; charset=UTF-8
+Access-Control-Allow-Origin: https://javascript.info
+
+JavaScript uses the fetch() method, to consult the browser. What the browser then does is send and HHTP request to the server. If it validates then using the Origin, the source, and the path. If it validated, the the Post method is implemented, and the the GET request is sent to the server. The request is then sent back to the browser using the access-control-allow-origin, or the website url, returning a header specified. If not the it will fail. The success response will be in HTTP code format, HTTP 200 status OK. 
+
+### Response Headers: 
+
+JavaScript can only access simple-response headers. 
+In the context of Cross-Origin Resource Sharing (CORS) in JavaScript, simple response headers refer to the subset of response headers that the browser considers safe to expose to the requesting client without the need for CORS protocol. These headers don't trigger a CORS preflight request (a preliminary request that checks if the actual request is safe to send) and are automatically included in the response by the browser if the request meets certain criteria.
+
+Cache-Control: Used to specify caching directives in the response. For example, "public" indicates that the response may be cached by any cache, even if it's normally non-cacheable.
+
+1. Content-Language: Specifies the language of the content.
+
+2. Content-Type: Indicates the media type of the resource.
+
+3. Expires: Gives the date/time after which the response is considered stale.
+
+4. Last-Modified: Indicates the last modified date of the resource.
+
+5. Pragma: Provides implementation-specific directives that might apply to any recipient along the request/response chain.
+
+6. Access-Control-Allow-Origin: Though this header is part of CORS and is used for handling cross-origin requests, it is considered a simple response header because it doesn't require a preflight request in certain circumstances. When the server specifies a specific origin (rather than "*") in the Access-Control-Allow-Origin header and the request is a simple GET, HEAD, or POST request, this header is considered simple.
