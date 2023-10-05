@@ -870,6 +870,94 @@ API-Key: 2c9de507f2c54aa1
 Access-Control-Allow-Origin: https://javascript.info
 Access-Control-Expose-Headers: Content-Length,API-Key
 
-With such Access-Control-Expose-Headersheader, the script is allowed to access Content-Length and API-Key headers of the response.
+With such Access-Control-Expose-Headers header, the script is allowed to access Content-Length and API-Key headers of the response.
+
+
+### Cross-Domain PATCH Request: 
+
+let response = await fetch ('https://site.com/service.json',{
+method : PATCH,   
+headers: {
+'Content-Type' : application.json
+'API-key' : 'secret' 
+}
+});
+PATCH Method, sends out to the main request. 
+
+
+Here's how a typical CORS request works:
+
+* Preflight Request: Before the actual request (like GET or POST) is sent, the browser sends an HTTP OPTIONS request to the server. This preflight request includes headers indicating what kind of request your JavaScript code wants to make.
+
+* Server Checks: The server then checks these headers to see if it allows requests from the origin (your website). If the server is configured to permit requests from your domain, it will respond to the preflight request with the appropriate CORS headers, indicating that the actual request can proceed.
+
+* Actual Request: If the server responds with the correct CORS headers permitting the request, your browser sends the actual GET, POST, or other request specified by your JavaScript code.
+
+This process is in place to enhance security on the web, ensuring that only trusted sources can interact with a server's resources.
+In JavaScript, you often don't have to worry about these details because modern frameworks and libraries handle CORS for you. However, it's good to understand the concept, especially if you're dealing with raw HTTP requests in your applications.
+
+## Credentials: 
+
+In the context of web development, when you make requests from a client-side JavaScript application to a different domain, you often encounter issues related to security. One such issue is related to credentials.
+
+When you make a cross-origin request (a request from one domain to another), browsers, by default, do not include credentials such as cookies or HTTP authentication information. This is a security measure to prevent unauthorized access to user data.
+
+However, there are scenarios where you might want to include credentials in your cross-origin requests. For example, if your frontend code is on one domain and your backend API is on another domain, and you want to authenticate users using sessions or cookies, you need to send credentials with your requests.
+
+To include credentials in a cross-origin request, you need to set the `credentials` option in your JavaScript code. The `credentials` option can be set to one of the following values:
+
+- `'same-origin'`: This option includes credentials in the request only if the request origin is the same as the target origin. If they're different, credentials won't be sent.
+
+- `'include'`: This option always includes credentials with the request, regardless of the origin. Use this when you want to send cookies or HTTP authentication information.
+
+- `'omit'`: This option never includes credentials in the request, regardless of the origin. Use this when you don't want to send any credentials.
+
+Here's an example of how you might use the `credentials` option in a fetch request in JavaScript:
+
+```javascript
+fetch('https://api.example.com/data', {
+  method: 'GET',
+  credentials: 'include', // or 'same-origin' or 'omit' based on your requirements
+})
+  .then(response => {
+    // Handle the response
+  })
+  .catch(error => {
+    // Handle errors
+  });
+```
+
+In this example, the `credentials: 'include'` option is set, indicating that the request should include credentials. This is essential if you're dealing with authentication mechanisms that rely on cookies or other credentials stored in the user's browser.
+
+Always be careful when handling credentials in your JavaScript code to ensure the security of your users' data. Make sure to use secure connections (HTTPS) and implement proper server-side security measures to protect sensitive information.
+
+ Why do we need Origin?
+As you probably know, there’s HTTP-header Referer, that usually contains a URL of the page which initiated a network request.
+
+For instance, when fetching http://google.comfrom http://javascript.info/some/url, the headers look like this:
+
+Accept: */*
+Accept-Charset: utf-8
+Accept-Encoding: gzip,deflate,sdch
+Connection: keep-alive
+Host: google.com
+Origin: http://javascript.info
+Referer: http://javascript.info/some/url
+
+As you can see, both Referer and Origin are present.
+
+We need Origin, because sometimes Referer is absent. For instance, when we fetch HTTP-page from HTTPS (access less secure from more secure), then there’s no Referer.
+The Content Security Policy may forbid sending a Referer.
+As we’ll see, fetch has options that prevent sending the Referer and even allow to change it (within the same site).
+By specification, Referer is an optional HTTP-header.
+Exactly because Referer is unreliable, Origin was invented. The browser guarantees correct Origin for cross-origin requests.
+
+
+
+
+
+
+ 
+
 
 
