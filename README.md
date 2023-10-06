@@ -952,6 +952,16 @@ As we’ll see, fetch has options that prevent sending the Referer and even allo
 By specification, Referer is an optional HTTP-header.
 Exactly because Referer is unreliable, Origin was invented. The browser guarantees correct Origin for cross-origin requests.
 
+# Day 4: 
+
+## Patterns, Flags and RegEx: 
+
+In JavaScript, patterns and flags are used with regular expressions (regex) to search for and manipulate text. 
+
+* RegEx: A regular expression (also “regexp”, or just “reg”) consists of a pattern and optional flags.
+* Flags: Additional settings that modify the behavior of the pattern matching. They are used as optional parameters to the regex constructor or as a suffix to the pattern.
+* Patterns in regular expressions (regex) are sequences of characters that define a search pattern. They are used to match and manipulate strings of text.
+
 
 
 
