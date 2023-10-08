@@ -1323,6 +1323,8 @@ The reason is that backslashes are “consumed” by a string. Remember, regular
 * We also need to escape / if we’re inside /.../ (but not inside new RegExp).
 * When passing a string new RegExp, we need to double backslashes \\, cause strings consume one of them.
 
+                                                                        --- END OF WEEK 2 ---
+
   # Week 3:
 
   ## Day 1:
