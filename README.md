@@ -982,6 +982,45 @@ Enables full unicode support. The flag enables correct processing of surrogate p
 Sticky mode (covered in the chapter Sticky flag "y", searching at position)
 
 
+## Methods of RegEx and flags: 
+
+First, regular expressions are objects of the built-in RegExp class, it provides many methods. Besides that, there are methods in regular strings can work with regexps.
+
+o search for all matches:
+
+Use regexp g flag and:
+
+Get a flat array of matches – str.match(reg)
+Get an array or matches with details – str.matchAll(reg).
+To search for the first match only:
+
+Get the full first match – str.match(reg) (without g flag).
+Get the string position of the first match – str.search(reg).
+Check if there’s a match – regexp.test(str).
+Find the match from the given position – regexp.exec(str) (set regexp.lastIndex to position).
+* To replace all matches:
+Replace with another string or a function result – str.replace(reg, str|func)
+* To split the string by a separator:
+str.split(str|reg)
+str.search(reg)
+
+NB: The important limitation: search only finds the first match.
+
+We can’t find next matches using search, there’s just no syntax for that. But there are other methods that can.
+
+str.match(reg), no “g” flag
+
+The behavior of str.match varies depending on whether reg has g flag or not.
+First, if there’s no g flag, then str.match(reg) looks for the first match only.
+
+The result is an array with that match and additional properties:
+* index – the position of the match inside the string,
+* input – the subject string.
+If a part of the pattern is delimited by parentheses (...), then it becomes a separate element in the array.
+
+If parentheses have a name, designated by (?<name>...) at their start, then result.groups[name] has the content.
+
+
 
 
 
