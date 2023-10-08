@@ -1221,6 +1221,39 @@ Immediately before is \w, and immediately after – not \w, or vise versa.
 At string start, and the first string character is \w.
 At string end, and the last string character is \w.
 
+## Inverse Classes:
+
+For every character class there exists an “inverse class”, denoted with the same letter, but uppercased.
+The “reverse” means that it matches all other characters, for instance:
+
+* \D:
+Non-digit: any character except \d, for instance a letter.
+
+* \S:
+Non-space: any character except \s, for instance a letter.
+
+* \W:
+Non-wordly character: anything but \w.
+
+* \B:
+Non-boundary: a test reverse to \b.
+
+In the beginning of the chapter we saw how to get all digits from the phone +7(903)-123-45-67.
+
+One way was to match all digits and join them:
+
+let str = "+7(903)-123-45-67";
+
+alert( str.match(/\d/g).join('') ); // 79031234567
+
+An alternative, shorter way is to find non-digits \D and remove them from the string:
+
+let str = "+7(903)-123-45-67";
+
+alert( str.replace(/\D/g, "") ); // 79031234567
+
+
+
 
 
  
