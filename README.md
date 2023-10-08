@@ -1156,8 +1156,70 @@ regexp.exec(str) returns the first match and remembers the position after it in 
 * regexp.test(str)
 The method regexp.test(str) looks for a match and returns true/false whether it finds it.
 
+Summary
+
+There’s a variety of many methods on both regexps and strings.
+
+Their abilities and methods overlap quite a bit, we can do the same by different calls. Sometimes that may cause confusion when starting to learn the language.
+
+Then please refer to the recipes at the beginning of this chapter, as they provide solutions for the majority of regexp-related tasks.
+
+Daily Notes - Methods of RegExp and String
+Daily Notes - Methods of RegExp and String
+
+The second argument is a replacement string. We can use special characters in it:
+
+Symbol	Inserts
+$$	"$"
+$&	the whole match
+$`	a part of the string before the match
+$'	a part of the string after the match
+$n	if n is a 1-2 digit number, then it means the contents of n-th parentheses counting from left to right, otherwise it means a parentheses with the given name
+For instance if we use $& in the replacement string, that means “put the whole match here”.
+
+Let’s use it to prepend all entries of "John" with "Mr.":
+
+let str = "John Doe, John Smith and John Bull";
+// for each John - replace it with Mr. and then John
+alert(str.replace(/John/g, 'Mr.$&'));  // Mr.John Doe, Mr.John Smith and Mr.John Bull
 
 
+Quite often we’d like to reuse parts of the source string, recombine them in the replacement or wrap into something.
+
+To do so, we should:
+First, mark the parts by parentheses in regexp.
+Use $1, $2 (and so on) in the replacement string to get the content matched by 1st, 2nd and so on parentheses.
+
+
+For instance:
+let str = "John Smith";
+// swap first and last name
+alert(str.replace(/(john) (smith)/i, '$2, $1')) // Smith, John
+
+For situations that require “smart” replacements, the second argument can be a function.
+It will be called for each match, and its result will be inserted as a replacement.
+
+
+## Character Classes: 
+Consider a practical task – we have a phone number "+7(903)-123-45-67", and we need to turn it into pure numbers: 79035419441.
+To do so, we can find and remove anything that’s not a number. Character classes can help with that.
+A character class is a special notation that matches any symbol from a certain set.
+
+
+## Word boundary \b:
+
+* A word boundary \b – is a special character class.
+* It does not denote a character, but rather a boundary between characters.
+For instance, \bJava\b matches Java in the string Hello, Java!, but not in the script Hello, JavaScript!.
+alert( "Hello, Java!".match(/\bJava\b/) ); // Java
+alert( "Hello, JavaScript!".match(/\bJava\b/) ); // null
+The boundary has “zero width” in a sense that usually a character class means a character in the result (like a wordly character or a digit), but not in this case.
+The boundary is a test.
+When regular expression engine is doing the search, it’s moving along the string in an attempt to find the match. At each string position it tries to find the pattern.
+When the pattern contains \b, it tests that the position in string is a word boundary, that is one of three variants:
+Immediately before is \w, and immediately after – not \w, or vise versa.
+At string start, and the first string character is \w.
+At string end, and the last string character is \w.
 
 
 
