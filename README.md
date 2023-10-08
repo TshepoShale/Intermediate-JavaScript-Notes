@@ -1277,6 +1277,20 @@ Modern JavaScript allows to use these properties in regexps to look for characte
 * A currency symbol, such as $, € or another: \p{Currency_Symbol} or \p{sc}.
 …And much more. Unicode has a lot of character categories that we can select from.
 
+The time has a format: hours:minutes. Both hours and minutes has two digits, like 09:00.
+Make a regexp to find time in the string: Breakfast at 09:00 in the room 123:456.
+
+const text = "Breakfast at 09:00 in the room 123:456.";
+const timeRegex = /\b\d{2}:\d{2}\b/g;
+const matches = text.match(timeRegex);
+
+if (matches) {
+    console.log("Found time(s):", matches);
+} else {
+    console.log("No matching time found.");
+}
+
+
 
 
 
