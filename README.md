@@ -1254,7 +1254,7 @@ NB: A space is a character. Equal in importance with any other character.
 NB: The dot "." is a special character class that matches “any character except a newline”.
 
 ## The dotfall "s" flag:
-
+That’s what s flag does. If a regexp has it, then the dot "." match literally any character.
 
 There exist following character classes:
 
@@ -1276,6 +1276,8 @@ Modern JavaScript allows to use these properties in regexps to look for characte
 * A dash (be it a small hyphen - or a long dash —): \p{Dash_Punctuation} or \p{pd}.
 * A currency symbol, such as $, € or another: \p{Currency_Symbol} or \p{sc}.
 …And much more. Unicode has a lot of character categories that we can select from.
+
+
 
 
 
