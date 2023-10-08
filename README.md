@@ -1017,8 +1017,144 @@ The result is an array with that match and additional properties:
 * index – the position of the match inside the string,
 * input – the subject string.
 If a part of the pattern is delimited by parentheses (...), then it becomes a separate element in the array.
-
 If parentheses have a name, designated by (?<name>...) at their start, then result.groups[name] has the content.
+
+Due to the i flag the search is case-insensitive, so it finds JavaScript. The part of the match that corresponds to SCRIPTbecomes a separate array item.
+
+So, this method is used to find one full match with all details.
+
+str.match(reg) with “g” flag
+
+When there’s a "g" flag, then str.match returns an array of all matches. There are no additional properties in that array, and parentheses do not create any elements.
+
+So, with g flag str.match returns a simple array of all matches, without details.
+
+If we want to get information about match positions and contents of parentheses then we should use matchAll method that we’ll cover below.
+
+If there are no matches, str.match returns null
+
+Please note, that’s important. If there are no matches, the result is not an empty array, but null. Keep that in mind to evade pitfalls like this:
+
+let str = "Hey-hey-hey!";
+
+alert( str.match(/Z/g).length ); // Error: Cannot read property 'length' of null
+Here str.match(/Z/g) is null, it has no length property.
+
+str.matchAll(regexp)
+
+The method str.matchAll(regexp) is used to find all matches with all details.
+
+matchAll returns an iterable, not array
+
+matchAll is supernew, may need a polyfill
+
+The method may not work in old browsers. A polyfill might be needed (this site uses core-js).
+Or you could make a loop with regexp.exec, explained below.
+
+str.split(regexp|substr, limit)
+
+Splits the string using the regexp (or a substring) as a delimiter.
+
+We already used split with strings, like this:
+
+alert('12-34-56'.split('-')) // array of [12, 34, 56]
+
+But we can split by a regular expression, the same way:
+
+alert('12-34-56'.split(/-/)) // array of [12, 34, 56]
+
+str.replace(str|reg, str|func)
+
+This is a generic method for searching and replacing, one of most useful ones. The swiss army knife for searching and replacing.
+
+We can use it without regexps, to search and replace a substring:
+
+// replace a dash by a colon
+
+alert('12-34-56'.replace("-", ":")) // 12:34-56
+
+There’s a pitfall though.
+
+When the first argument of replace is a string, it only looks for the first match.
+
+You can see that in the example above: only the first "-" is replaced by ":".
+
+To find all dashes, we need to use not the string "-", but a regexp /-/g, with an obligatory g flag:
+
+ // replace all dashes by a colon
+
+alert( '12-34-56'.replace( /-/g, ":" ) )  // 12:34:56
+
+The second argument is a replacement string. We can use special characters in it:
+
+Symbol	Inserts
+$$	"$"
+$&	the whole match
+$`	a part of the string before the match
+$'	a part of the string after the match
+$n	if n is a 1-2 digit number, then it means the contents of n-th parentheses counting from left to right, otherwise it means a parentheses with the given name
+For instance if we use $& in the replacement string, that means “put the whole match here”.
+
+Let’s use it to prepend all entries of "John" with "Mr.":
+
+let str = "John Doe, John Smith and John Bull";
+
+// for each John - replace it with Mr. and then John
+
+alert(str.replace(/John/g, 'Mr.$&'));  // Mr.John Doe, Mr.John Smith and Mr.John Bull
+
+Quite often we’d like to reuse parts of the source string, recombine them in the replacement or wrap into something.
+
+To do so, we should:
+
+First, mark the parts by parentheses in regexp.
+Use $1, $2 (and so on) in the replacement string to get the content matched by 1st, 2nd and so on parentheses.
+For instance:
+
+let str = "John Smith";
+
+// swap first and last name
+
+alert(str.replace(/(john) (smith)/i, '$2, $1')) // Smith, John
+
+For situations that require “smart” replacements, the second argument can be a function.
+
+It will be called for each match, and its result will be inserted as a replacement.
+
+The function is called with arguments func(str, p1, p2, ..., pn, offset, input, groups):
+
+str – the match,
+p1, p2, ..., pn – contents of parentheses (if there are any),
+offset – position of the match,
+input – the source string,
+groups – an object with named groups (see chapter Capturing groups).
+If there are no parentheses in the regexp, then there are only 3 arguments: func(str, offset, input).
+
+Using a function gives us the ultimate replacement power, because it gets all the information about the match, has access to outer variables and can do everything.
+
+regexp.exec(str)
+
+We’ve already seen these searching methods:
+
+* search – looks for the position of the match,
+* match – if there’s no g flag, returns the first match with parentheses and all details,
+* match – if there’s a g flag – returns all matches, without details parentheses,
+* matchAll – returns all matches with details.
+
+The regexp.exec method is the most flexible searching method of all. Unlike previous methods, exec should be called on a regexp, rather than on a string.
+
+It behaves differently depending on whether the regexp has the g flag.
+
+If there’s no g, then regexp.exec(str) returns the first match, exactly as str.match(reg). Such behavior does not give us anything new.
+
+But if there’s g, then:
+
+regexp.exec(str) returns the first match and remembers the position after it in regexp.lastIndex property.
+* The next call starts to search from regexp.lastIndex and returns the next match.
+* If there are no more matches then regexp.exec returns null and regexp.lastIndex is set to 0.
+
+* regexp.test(str)
+The method regexp.test(str) looks for a match and returns true/false whether it finds it.
 
 
 
