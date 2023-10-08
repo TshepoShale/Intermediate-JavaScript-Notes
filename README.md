@@ -1290,9 +1290,46 @@ if (matches) {
     console.log("No matching time found.");
 }
 
+## Escaping, and Special Characters: 
+
+To use a special character as a regular one, prepend it with a backslash: \..
+That’s also called “escaping a character”.
+
+* A slash:
+A slash symbol '/' is not a special character, but in JavaScript it is used to open and close the regexp: /...pattern.../, so we should escape it too.
+
+Here’s what a search for a slash '/' looks like:
+alert( "/".match(/\//) ); // '/'
+
+On the other hand, if we’re not using /.../, but create a regexp using new RegExp, then we don’t need to escape it:
+alert( "/".match(new RegExp("/")) ); // '/'
+
+* new RegExp:
+
+If we are creating a regular expression with new RegExp, then we don’t have to escape /, but need to do some other escaping.
+
+For instance, consider this:
+
+let reg = new RegExp("\d\.\d");
+
+alert( "Chapter 5.1".match(reg) ); // null
+
+The search worked with /\d\.\d/, but with new RegExp("\d\.\d") it doesn’t work, why?
+
+The reason is that backslashes are “consumed” by a string. Remember, regular strings have their own special characters like \n, and a backslash is used for escaping.
 
 
+* To search special characters [ \ ^ $ . | ? * + ( ) literally, we need to prepend them with \ (“escape them”).
+* We also need to escape / if we’re inside /.../ (but not inside new RegExp).
+* When passing a string new RegExp, we need to double backslashes \\, cause strings consume one of them.
 
+  # Week 3:
+
+  ## Day 1:
+
+  ### Node JS:
+
+  
 
 
 
