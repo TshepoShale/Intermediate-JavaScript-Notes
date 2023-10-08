@@ -958,9 +958,28 @@ Exactly because Referer is unreliable, Origin was invented. The browser guarante
 
 In JavaScript, patterns and flags are used with regular expressions (regex) to search for and manipulate text. 
 
-* RegEx: A regular expression (also “regexp”, or just “reg”) consists of a pattern and optional flags.
+* RegEx: A regular expression (also “regexp”, or just “reg”) consists of a pattern and optional flags. Slashes "/" tell JavaScript that we are creating a regular expression. They play the same role as quotes for strings.
 * Flags: Additional settings that modify the behavior of the pattern matching. They are used as optional parameters to the regex constructor or as a suffix to the pattern.
 * Patterns in regular expressions (regex) are sequences of characters that define a search pattern. They are used to match and manipulate strings of text.
+
+ There are only 6 flagsin JavaScript:
+* i
+With this flag the search is case-insensitive: no difference between A and a (see the example below).
+
+* g
+With this flag the search looks for all matches, without it – only the first one 
+
+* m
+Multiline mode (covered in the chapter Multiline mode, flag "m").
+
+* s
+“Dotall” mode, allows . to match newlines (covered in the chapter Character classes).
+
+* u
+Enables full unicode support. The flag enables correct processing of surrogate pairs. More about that in the chapter  Unicode: flag "u".
+
+* y
+Sticky mode (covered in the chapter Sticky flag "y", searching at position)
 
 
 
