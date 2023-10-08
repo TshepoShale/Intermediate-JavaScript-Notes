@@ -1243,14 +1243,39 @@ In the beginning of the chapter we saw how to get all digits from the phone +7(9
 One way was to match all digits and join them:
 
 let str = "+7(903)-123-45-67";
-
 alert( str.match(/\d/g).join('') ); // 79031234567
 
 An alternative, shorter way is to find non-digits \D and remove them from the string:
 
 let str = "+7(903)-123-45-67";
-
 alert( str.replace(/\D/g, "") ); // 79031234567
+
+NB: A space is a character. Equal in importance with any other character.
+NB: The dot "." is a special character class that matches “any character except a newline”.
+
+## The dotfall "s" flag:
+
+
+There exist following character classes:
+
+* \d: – digits.
+* \D: – non-digits.
+* \s: – space symbols, tabs, newlines.
+* \S: – all but \s.
+* \w: – English letters, digits, underscore '_'.
+* \W: – all but \w.
+any character if with the regexp 's' flag, otherwise any except a newline.
+
+…But that’s not all! 
+
+The Unicode encoding, used by JavaScript for strings, provides many properties for characters, like: which language the letter belongs to (if a letter) it is it a punctuation sign, etc.
+
+Modern JavaScript allows to use these properties in regexps to look for characters, for instance:
+
+* A cyrillic letter is: \p{Script=Cyrillic} or \p{sc=Cyrillic}.
+* A dash (be it a small hyphen - or a long dash —): \p{Dash_Punctuation} or \p{pd}.
+* A currency symbol, such as $, € or another: \p{Currency_Symbol} or \p{sc}.
+…And much more. Unicode has a lot of character categories that we can select from.
 
 
 
