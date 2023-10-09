@@ -1372,6 +1372,14 @@ node --harmony myscript.js
 
 node.green website:  provides an excellent overview over supported ECMAScript features in various versions of Node.js, based on kangax's compat-table.
 
+Summary: 
+
+* 1. Node JS is constantly upgraded, meaning you can do a lot of cool things like creating your own web server, insisting on cool game features, and efficiency in JS code. Node.js is designed to build scalable network applications.
+* 2. You use the "command line interface" to access it. That's where node.js files are indicated. eg. cmd, terminal, powershell etc. 
+* 3.  We use it to create server-side applications. 
+* 4. Modules in NodeJS are the same as JavaScript libraries.
+* 5. NPM: Node Package Manager; helps install packages and libraries within NodeJS. 
+* 6. It contains all the files you need, for a package. 
 
 
 
