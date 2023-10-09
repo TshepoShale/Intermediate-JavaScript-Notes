@@ -1330,6 +1330,47 @@ The reason is that backslashes are “consumed” by a string. Remember, regular
   ## Day 1:
 
   ### Node JS:
+  As an asynchronous event driven JavaScript runtime, Node.js is designed to build scalable network applications.
+  In the context of Node.js, blocking and non-blocking refer to the behavior of I/O operations (like reading from a file or making a network request) in the event-driven, 
+  asynchronous, and non-blocking I/O paradigm that Node.js is built upon.
+  * Blocking I/O:
+In traditional synchronous programming, when an I/O operation is performed, the program execution is halted until the operation is completed. This means if you read a file or make a network request, the program will wait until the file is read or the request is completed before it can do anything else. This is called blocking I/O because it blocks the execution of the program until the I/O operation is finished.
+
+const fs = require('fs');
+const data = fs.readFileSync('file.txt'); // This is a blocking I/O operation
+console.log(data.toString());
+console.log('Program Ended');
+
+* Non-blocking I/O:
+In contrast, Node.js uses non-blocking I/O operations. When a non-blocking I/O operation is initiated, the program continues to execute the next line of code without waiting for the I/O operation to finish. A callback function is typically provided that gets executed once the I/O operation is completed. This approach allows Node.js to handle many connections concurrently.
+
+const fs = require('fs');
+
+fs.readFile('file.txt', (err, data) => { // This is a non-blocking I/O operation
+    if (err) throw err;
+    console.log(data.toString());
+});
+
+console.log('Program Ended');
+
+In this example, the readFile function is non-blocking. It takes a callback function as an argument, which will be executed when the file reading operation is completed. The program continues executing the next line (console.log('Program Ended');) without waiting for the file reading operation to finish.
+The non-blocking nature of Node.js is one of its key features, enabling highly scalable applications where many I/O operations can be handled simultaneously without blocking the execution flow. It's essential to understand this asynchronous behavior when working with Node.js applications.
+
+Node.js takes the event model a bit further. It presents an event loop as a runtime construct instead of as a library. In other systems there is always a blocking call to start the event-loop. Typically behavior is defined through callbacks at the beginning of a script and at the end starts a server through a blocking call like EventMachine::run(). In Node.js there is no such start-the-event-loop call. Node.js simply enters the event loop after executing the input script. Node.js exits the event loop when there are no more callbacks to perform. This behavior is like browser JavaScript — the event loop is hidden from the user.
+
+##  The "harmony" Runtime flag: 
+The "Harmony" flag in the context of JavaScript refers to the set of experimental features and proposed ECMAScript (ES) standards that were in the process of being developed when ES6 (ECMAScript 2015) was under development.
+
+
+The "Harmony" flag in the context of JavaScript refers to the set of experimental features and proposed ECMAScript (ES) standards that were in the process of being developed when ES6 (ECMAScript 2015) was under development.
+
+In the early stages of development, many features that are now a standard part of JavaScript (such as arrow functions, classes, and modules) were marked as experimental and were not enabled by default in JavaScript engines to avoid breaking existing code. To experiment with these features, developers had to enable specific flags in JavaScript engines, and one of those flags was called the "Harmony" flag.
+
+For example, in Node.js, you could enable experimental features using the --harmony flag when running your scripts. An example command might look like this:
+node --harmony myscript.js
+
+
+
 
   
 
