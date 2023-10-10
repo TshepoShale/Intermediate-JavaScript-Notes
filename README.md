@@ -1382,6 +1382,30 @@ Summary:
 * 6. It contains all the files you need, for a package. 
 
 
+## Day 3: 
+
+## Sprites: 
+In the context of JavaScript and programming in general, sprites are 2D images or animations that are used to represent objects in a game or interactive application. These objects can be characters, enemies, items, or any other element that needs to be displayed on the screen. 
+
+// Get the canvas element and its context
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+// Create a sprite image object
+var sprite = new Image();
+sprite.src = "sprite.png"; // Replace "sprite.png" with the path to your sprite image
+
+// Define the sprite's position
+var spriteX = 100; // X-coordinate
+var spriteY = 50;  // Y-coordinate
+
+// Draw the sprite on the canvas
+ctx.drawImage(sprite, spriteX, spriteY);
+
+// You can also create multiple sprites and animate them by changing their positions in a loop.
+
+
+
 
 
   
