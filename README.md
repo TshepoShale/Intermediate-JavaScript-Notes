@@ -1382,28 +1382,6 @@ Summary:
 * 6. It contains all the files you need, for a package. 
 
 
-## Day 3: 
-
-## Sprites: 
-In the context of JavaScript and programming in general, sprites are 2D images or animations that are used to represent objects in a game or interactive application. These objects can be characters, enemies, items, or any other element that needs to be displayed on the screen. 
-
-// Get the canvas element and its context
-var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
-
-// Create a sprite image object
-var sprite = new Image();
-sprite.src = "sprite.png"; // Replace "sprite.png" with the path to your sprite image
-
-// Define the sprite's position
-var spriteX = 100; // X-coordinate
-var spriteY = 50;  // Y-coordinate
-
-// Draw the sprite on the canvas
-ctx.drawImage(sprite, spriteX, spriteY);
-
-// You can also create multiple sprites and animate them by changing their positions in a loop.
-
 ## Day 2:
 
 ## NodeJS Libraries: 
@@ -1547,6 +1525,30 @@ npm install dotenv Create a .env file in your project's root directory:
 API_KEY=myapikey SECRET=mysecret Now, load the environment variables in your Node.js application: 
 require('dotenv').config(); 
 console.log('API Key:', process.env.API_KEY); console.log('Secret:', process.env.SECRET 
+
+
+## Day 3: 
+
+## Sprites: 
+In the context of JavaScript and programming in general, sprites are 2D images or animations that are used to represent objects in a game or interactive application. These objects can be characters, enemies, items, or any other element that needs to be displayed on the screen.  In JavaScript, "sprites" typically refer to graphical objects or images that can be manipulated and displayed on a web page or within a game. Sprites are often used in 2D game development and interactive web applications to represent characters, objects, or other elements that can move around the screen. 
+
+// Get the canvas element and its context
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+// Create a sprite image object
+var sprite = new Image();
+sprite.src = "sprite.png"; // Replace "sprite.png" with the path to your sprite image
+
+// Define the sprite's position
+var spriteX = 100; // X-coordinate
+var spriteY = 50;  // Y-coordinate
+
+// Draw the sprite on the canvas
+ctx.drawImage(sprite, spriteX, spriteY);
+
+// You can also create multiple sprites and animate them by changing their positions in a loop.
+
 
  
 
