@@ -1527,7 +1527,7 @@ require('dotenv').config();
 console.log('API Key:', process.env.API_KEY); console.log('Secret:', process.env.SECRET 
 
 
-## Day 3: 
+## Day 3 and 4: 
 
 ## Sprites: 
 In the context of JavaScript and programming in general, sprites are 2D images or animations that are used to represent objects in a game or interactive application. These objects can be characters, enemies, items, or any other element that needs to be displayed on the screen.  In JavaScript, "sprites" typically refer to graphical objects or images that can be manipulated and displayed on a web page or within a game. Sprites are often used in 2D game development and interactive web applications to represent characters, objects, or other elements that can move around the screen. 
@@ -1548,6 +1548,10 @@ var spriteY = 50;  // Y-coordinate
 ctx.drawImage(sprite, spriteX, spriteY);
 
 // You can also create multiple sprites and animate them by changing their positions in a loop.
+
+
+
+### 
 
 
  
