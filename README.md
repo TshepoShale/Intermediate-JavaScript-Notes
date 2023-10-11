@@ -1404,7 +1404,151 @@ ctx.drawImage(sprite, spriteX, spriteY);
 
 // You can also create multiple sprites and animate them by changing their positions in a loop.
 
+## Day 2:
 
+## NodeJS Libraries: 
+
+Often referred to simply as “node.js module” or “node.js package is a collection of reusable js code that can be easily incorporated into your node.js application. 
+
+* The purpose of the libraries is to provide specific functionality or solve common programming problems or tasks, allowing developers to save time and effort by not having to reinvent the wheel. 
+Node.js libraries are typically distributed through the node package manager(npm) and can be installed using the npm command line tool. 
+### Types of libraries:
+
+## * Express: 
+
+A minimalist web app framework that simplifies the process of building web applications and APIs. Express.js provides a set of powerful tools and middleware to handle routing, HTTP requests, and responses. 
+
+Install this library using the following syntax. 
+npm install express. 
+Now, let's create a simple Express.js server: 
+const express = require('express'); 
+const app = express(); 
+const PORT = 3000; 
+app.get('/', (req, res) => {​​​​​​​​ 
+res.send('Hello, world!');}​​​​​​​​); 
+app.listen(PORT, () => {​​​​​​​​ 
+console.log(`Server is running on port ${​​​​​​​​PORT}​​​​​​​​`); 
+}​​​​​​​​);       
+
+## * Lodash:
+Lodash is a modern JavaScript utility library providing utility functions for common programming tasks. It simplifies working with arrays, strings, objects, numbers, and more. 
+
+To install Lodash, run: 
+npm install lodash Here's an example of using Lodash to find the intersection of two arrays: 
+const _ = require('lodash'); 
+const array1 = [1, 2, 3, 4]; const array2 = [3, 4, 5, 6]; 
+const intersection = _.intersection(array1, array2); console.log(intersection); // Output: [3, 4]  
+
+## * Mongoose: 
+ Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js. It provides a simple, schema-based solution to model application data and manage database operations. 
+
+Install Mongoose using: 
+npm install mongoose Here's an example of defining a schema and connecting to MongoDB using Mongoose: 
+const mongoose = require('mongoose'); 
+mongoose.connect('mongodb://localhost/test', {​​​​​​​   useNewUrlParser: true,   useUnifiedTopology: true, }​​​​​​​); 
+const userSchema = new mongoose.Schema({​​​​​​​   name: String,   age: Number,   email: String, }​​​​​​​); 
+const User = mongoose.model('User', userSchema); 
+const user = new User({​​​​​​​   name: 'John Doe',   age: 30,   email: 'john@example.com', }​​​​​​​); 
+user.save().then(() => console.log('User saved successfully'));  
+
+## * Passport.js:
+Passport.js is a popular authentication middleware for Node.js that supports various authentication strategies, including OAuth, OpenID, and more. 
+To install Passport.js, run: 
+npm install passport Here's an example of using Passport.js with a local authentication strategy: 
+const express = require('express'); const passport = require('passport'); const LocalStrategy = require('passport-local').Strategy; 
+const app = express(); 
+passport.use(   new LocalStrategy((username, password, done) => {​​​​​​​     // Replace with your own authentication logic     if (username === 'admin' && password === 'password') {​​​​​​​       return done(null, {​​​​​​​ id: 1, username: 'admin' }​​​​​​​);     }​​​​​​​     return done(null, false);   }​​​​​​​) ); 
+app.use(passport.initialize()); app.use(passport.session()); 
+app.post('/login', passport.authenticate('local'), (req, res), () => {​​​​​​​   res.send('Logged in!'); }​​​​​​​); 
+app.listen(3000, () => {​​​​​​​   console.log('Server is running on port 3000'); }​​​​​​​); 
+
+ ## * Socket.IO:
+     Socket.IO is a real-time communication library for Node.js that enables bidirectional event-based communication between the server and the client. It is perfect for chat applications, real-time analytics, and more. 
+
+To install Socket.IO, run: 
+npm install socket.io Here's an example of a simple chat server using Socket.IO: 
+const express = require('express'); const http = require('http'); const socketIO = require('socket.io'); 
+const app = express(); const server = http.createServer(app); const io = socketIO(server); 
+io.on('connection', (socket) => {​​​​​​​   console.log('A user connected'); 
+  socket.on('message', (msg) => {​​​​​​​     io.emit('message', msg);   }​​​​​​​); 
+  socket.on('disconnect', () => {​​​​​​​     console.log('A user disconnected');   }​​​​​​​); }​​​​​​​); 
+server.listen(3000, () => {​​​​​​​   console.log('Server is running on port 3000'); }​​​​​​​);  
+
+## * Async:
+ Async is a powerful utility module for working with asynchronous JavaScript. It provides a collection of higher-order functions for managing control flow and handling asynchronous operations. 
+ 
+To install Async, run: 
+npm install async Here's an example of using Async's waterfall function to execute multiple asynchronous functions in sequence: 
+ const async = require('async'); 
+async.waterfall( 
+  [ 
+    (callback) => { 
+
+      setTimeout(() => { 
+
+        console.log('Task 1'); 
+
+        callback(null, 'Task 1 result'); 
+
+      }, 1000); 
+
+  }, 
+
+    (task1Result, callback) => { 
+      setTimeout(() => { 
+        console.log('Task 2'); 
+        callback(null, 'Task 2 result'); 
+      }, 1000); 
+
+    }, 
+
+  ], 
+(err, result) => { 
+    if (err) { 
+      console.error(err); 
+    } else { 
+      console.log('All tasks completed:', result); 
+
+    } 
+
+  } 
+
+); 
+
+## * Request:
+Request is a popular HTTP client library for Node.js that simplifies making HTTP requests. It supports various features like OAuth signing, streaming, and more. 
+Note: The Request library has been deprecated, but you can still use it or switch to alternatives like Axios, Got, or Node-fetch. 
+To install Request, run: 
+npm install request Here's an example of making a GET request using the Request library: 
+const request = require('request'); 
+request('https://api.example.com/data', (error, response, body) => {​​​​​​​   if (!error && response.statusCode === 200) {​​​​​​​     console.log(body);   }​​​​​​​ }​​​​​​​);  
+
+## * Winston:
+Winston is a versatile logging library for Node.js, designed to be flexible and extensible. It supports multiple transports, which means you can log messages to various destinations, such as console, files, or remote services. 
+
+To install Winston, run: 
+npm install winston Here's an example of basic logging using Winston: 
+const winston = require('winston'); 
+const logger = winston.createLogger({​​​​​​​   level: 'info',   format: winston.format.simple(),   transports: [     new winston.transports.Console(),     new winston.transports.File({​​​​​​​ filename: 'combined.log' }​​​​​​​),   ], }​​​​​​​); 
+logger.info('Hello, Winston!'); 
+
+## * Nodemon:
+Nodemon is a utility that monitors for changes in your source code and automatically restarts your Node.js application during development. This saves you the hassle of manually restarting the server every time you make changes. 
+
+To install Nodemon globally, run: 
+npm install -g nodemon Now, you can start your Node.js application with Nodemon using the following command: 
+nodemon app.js  
+
+## * dotenv:
+dotenv is a zero-dependency module that loads environment variables from a .env file into process.env. Storing configuration in the environment is a best practice, as it keeps sensitive data like API keys and passwords out of your source code. 
+
+To install dotenv, run: 
+npm install dotenv Create a .env file in your project's root directory: 
+API_KEY=myapikey SECRET=mysecret Now, load the environment variables in your Node.js application: 
+require('dotenv').config(); 
+console.log('API Key:', process.env.API_KEY); console.log('Secret:', process.env.SECRET 
+
+ 
 
 
 
