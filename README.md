@@ -1591,6 +1591,9 @@ This is where you define your main component. The component is created using Rea
 * Set Up the App Registry:
 To render your app on the screen, you need to set up the
 app registry. This is typically done in your index.js file. You import your main component and register it using AppRegistry.registerComponent. Make sure the name you pass to AppRegistry.registerComponent matches your project's name.
+*  Run the App:
+Now, you can run your React Native app. Use the following commands to start your development server and launch your app on either an Android emulator or an iOS simulator:  npx react-native run-ios
+These commands will compile your app and display it on the emulator/simulator.
 
 ## Day 3: Building the Chat component
 Building a chat component for your website involves several important aspects to consider. Here's a list of things you should be aware of when building a chat component using JavaScript:
@@ -1659,6 +1662,23 @@ In summary, WebSockets are like a direct, two-way communication channel between 
    - Minimize unnecessary network requests and optimize database queries.
 
 By paying attention to these aspects, you can create a robust and user-friendly chat component for your website using JavaScript. Keep in mind that ongoing maintenance, updates, and user feedback are essential for continuously improving the chat experience.
+
+## Day 4: 
+### Displaying the Chat Message: 
+* Set up your development Environment Ensure you have Node.js and npm (Node Package Manager) installed. 
+* Create the HTML Structure
+* Style your App
+* Implement the chat logic in JavaScript
+* Create a Back-End server
+* Deploy your chat app
+
+
+ * Chat App Reflections:
+Building a chat app requires a focus on user experience, real-time communication.
+
+
+
+                                                                --- END OF WEEK 4 ---
 
 
 
