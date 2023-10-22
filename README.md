@@ -1551,10 +1551,39 @@ ctx.drawImage(sprite, spriteX, spriteY);
 
 
 
-# Week 4: 
+# Week 4:
+## Day 1:
+## Installing and Building App components in NodeJS:
+*Installing dependencies is a common task in software development, and the specific steps can vary depending on the programming language, framework, and package manager you're using. Here are general steps for installing dependencies in a JavaScript project, which is commonly used in the context of React Native: 
+* Package Manager: JavaScript projects typically use a package manager like npm (Node Package Manager) or Yarn to manage dependencies. Make sure you have one of these package managers installed on your system. 
+* Create a Project: If you haven't already, create a new React Native project using the react-native init command. 
+* Installing dependencies is a common task in software development, and the specific steps can vary depending on the programming language, framework, and package manager you're using. Here are general steps for installing dependencies in a JavaScript project, which is commonly used in the context of React Native: 
+* Package Manager: JavaScript projects typically use a package manager like npm (Node Package Manager) or Yarn to manage dependencies. Make sure you have one of these package managers installed on your system. 
+* Create a Project: If you haven't already, create a new React Native project using the react-native init command. 
+* Navigate to Project Directory: Use the cd command to navigate to the directory of your newly created React Native project
+Install Dependencies: 
+To install dependencies defined in your project's package.json file, run: 
+If you want to install a specific package and add it to your project's dependencies, you can use the npm install or yarn add command, followed by the package name. F
+ React Native: 
+React Native is an open-source framework for building mobile applications using JavaScript and React. It was created by Facebook and was first released in 2015. React Native allows developers to build mobile apps for multiple platforms, including iOS and Android, using a single codebase.
+## Server Side Development:
+Development Server for React Native: 
+1. React Native comes with a built-in development server, which you can start using the following command:npx react-native start 
+2. Connecting to a Mobile Device: 
+To run your React Native app on an emulator or physical device, you'll need to connect it to the development server. Ensure your development environment (e.g., Android Studio or Xcode) is set up, and your device is recognized. Then, run one of the following commands based on your platform: npx react-native run-android 
+3.Server-Side Development: 
+If your React Native app requires server-side functionality, such as a REST API or a database, you'll need to set up a backend server. 
+4. Testing Server-Client Communication: 
+5. To test communication between your React Native app and your backend server, make API requests from your app to the server. You can use libraries like axios or the built-in fetch to make HTTP requests to your server's API endpoints. 
+Ensure your server is running, and update your API requests in your React Native app to use the server's IP address or hostname. 
+5. Database Setup (if needed): 
+If your app requires a database, you'll need to set up and configure a database server. Popular databases for web development include MySQL, PostgreSQL, MongoDB, and SQLite. Install and configure the database server according to your project's requirements. 
+6. Deployment: 
+Once you've set up your server, tested your server-client communication, and ensured your React Native app works with the server, you can deploy your backend to a hosting platform or server of your choice. For example, you might deploy your Node.js application to a cloud provider like AWS, Heroku, or Firebase.
+
+## Day 2: 
 
 ## Day 3: Building the Chat component
-
 Building a chat component for your website involves several important aspects to consider. Here's a list of things you should be aware of when building a chat component using JavaScript:
 
 ### 1. **WebSocket Communication:**
