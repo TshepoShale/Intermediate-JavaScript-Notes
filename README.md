@@ -1549,7 +1549,7 @@ ctx.drawImage(sprite, spriteX, spriteY);
 
 // You can also create multiple sprites and animate them by changing their positions in a loop.
 
-
+                                                                --- END OF WEEK 3 ---
 
 # Week 4:
 ## Day 1:
