@@ -1582,6 +1582,15 @@ If your app requires a database, you'll need to set up and configure a database 
 Once you've set up your server, tested your server-client communication, and ensured your React Native app works with the server, you can deploy your backend to a hosting platform or server of your choice. For example, you might deploy your Node.js application to a cloud provider like AWS, Heroku, or Firebase.
 
 ## Day 2: 
+### Building the Index Page:
+* Create a New React Native Project:
+  npx react-native init MyAwesomeApp
+This will create the initial project structure with necessary files and dependencies.
+* Define the App Component:
+This is where you define your main component. The component is created using React and React Native components.
+* Set Up the App Registry:
+To render your app on the screen, you need to set up the
+app registry. This is typically done in your index.js file. You import your main component and register it using AppRegistry.registerComponent. Make sure the name you pass to AppRegistry.registerComponent matches your project's name.
 
 ## Day 3: Building the Chat component
 Building a chat component for your website involves several important aspects to consider. Here's a list of things you should be aware of when building a chat component using JavaScript:
